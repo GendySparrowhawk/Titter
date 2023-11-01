@@ -28,16 +28,18 @@ router.post('/thoughts', async (req, res) => {
     const { thoughtText, username, user_id } = req.body;
 
     try {
-        const newThought = await Thought.create({
-            thoughtText,
-            username,
-        });
-
         const user = await User.findById(user_id);
         // error handling if no user
         if (!user) {
             return res.status(404).json({ error: 'no user found' });
         }
+
+        const newThought = await Thought.create({
+            thoughtText,
+            username,
+            user: user._id,
+        });
+
 
         user.thoughts.push(newThought._id);
         await user.save();
@@ -124,9 +126,9 @@ router.post('/thoughts/:thought_id/reactions', async (req, res) => {
     };
 });
 
+// a route to delete a 
 router.delete('/thoughts/:thought_id/reactions/:reaction_id', async (req, res) => {
     const { thought_id, reaction_id } = await req.params;
-    
     // error handling if no thought with that id
     if (!thought_id || !reaction_id) {
         return res.status(404).json({ error: 'no thought found, it\'s always in the last place you look' });
