@@ -17,22 +17,22 @@ router.post('/register', async (req, res) => {
 
 
 // login a user so they can create thoughts
-router.post('/login', async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
+// router.post('/login', async (req, res) => {
+//     const { email, password } = req.body;
+//     const user = await User.findOne({ email });
 
-    if (!user) {
-        return res.status(403).send({
-            message: 'no user found with that email address'
-        });
-    }
+//     if (!user) {
+//         return res.status(403).send({
+//             message: 'no user found with that email address'
+//         });
+//     }
 
-    const pass_is_vaild = await user.validatePass(password);
+//     const pass_is_vaild = await user.validatePass(password);
 
-    if (!pass_is_vaild) {
-        return res.status(401).send({ message: 'password is invaild' })
-    }
-});
+//     if (!pass_is_vaild) {
+//         return res.status(401).send({ message: 'password is invaild' })
+//     }
+// });
 
 
 // route to get all users
