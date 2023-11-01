@@ -25,7 +25,6 @@ app.use(session({
 
 app.use('/', api_routes);
 
-
 app.get('*', (req, res) => {
     res.status(404).send({
         message: 'That route is incorrect',
